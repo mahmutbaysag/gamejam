@@ -8,7 +8,7 @@ public class onayBtn : MonoBehaviour
     public void OnMouseDown()
     {
         mainCS = GameObject.FindGameObjectWithTag("MainCamera");
-        mainCS.GetComponent<main>().soruDegistir();
+        mainCS.GetComponent<main>().soruDegistir(1);
         Debug.Log("Karar Onaylandý");
     }
 }

@@ -40,10 +40,12 @@ public class main : MonoBehaviour
 
     }
 
-    public void soruDegistir()
+    public void soruDegistir(int a)
     {
-        isletmeSayaci++;
-        Debug.Log(isletmeler[isletmeSayaci].ad);
+        //1:onay    0=redd
+        kararSayaci++;
+
+        
     }
 
     public int isletmeSayaci = 0;
@@ -51,7 +53,7 @@ public class main : MonoBehaviour
     public void yeniIsletmeYukle()
     {
         //zaman fonsiyonu kurulacak
-        
+        kararSayaci = 0;
         isletmeIsim.text = isletmeler[isletmeSayaci].ad;
         sohret.text = isletmeler[isletmeSayaci].sohret.ToString();
         servet.text = isletmeler[isletmeSayaci].servet.ToString();
@@ -60,6 +62,9 @@ public class main : MonoBehaviour
         isletmeBilgi.text = isletmeler[isletmeSayaci].bilgi;
         seviyeNum.text = (isletmeSayaci + 1).ToString();
         kararSorusu.text = isletmeler[isletmeSayaci].kararlar[kararSayaci].soru;
+
+        anlikSohret = isletmeler[isletmeSayaci].istenenSohret;
+        anlikServet = isletmeler[isletmeSayaci].istenenServet;
 
         sonrakiLvlPanel.SetActive(false);
 
@@ -86,11 +91,11 @@ public class main : MonoBehaviour
         adlar[4] = "ELEKTRONÝK MAÐAZASI";
 
         string[,] sorular = new string[5, 5] { {
-        "kahve otomatý",
-        "bahçe temalý konsept ",
-        "kaçak kat çýkýp parti",
-        "koltuklarýn deðiþimi",
-        "çalýþanlardan memnun olmasýnlar"
+        "1kahve otomatý",
+        "1bahçe temalý konsept ",
+        "0kaçak kat çýkýp parti",
+        "0müþteriler poker masasý isteniyor",
+        "0müþteriler çalýþandan memnun deðil çalýþanlar deðiþtirilsin"
          },
          {
         "ürünler i arttýrma",
@@ -125,12 +130,12 @@ public class main : MonoBehaviour
         for(int i=0;i<5;i++)
         {
             isletmeler[c] = new isletme();
-            isletmeler[c].isletmeEkle(c, adlar[i], adlar[i], Random.Range(1, 9), Random.Range(10000, 500000), Random.Range(1, 9), Random.Range(10000, 500000), Random.Range(1, 5));
+            isletmeler[c].isletmeEkle(c, adlar[i], adlar[i], Random.Range(1, 10), Random.Range(10000, 500000), Random.Range(1, 10), Random.Range(10000, 500000), Random.Range(1, 6));
             karar[] kar = new karar[5];
             for(int j = 0; j < 5; j++)
             {
                 karar x = new karar();
-                x.kararEkle(j+1,sorular[i,j],Random.Range(1,4));
+                x.kararEkle(j+1,sorular[i,j],Random.Range(1,4),4);//son deðer düzemenecek
                 kar[j]=x;
             }
             isletmeler[c].kararlar = kar;
@@ -180,12 +185,14 @@ public class karar
     public int kid;
     public string soru;
     public int etki; // *10000=servete etki
+    public int sirketeEtki;
 
-    public void kararEkle(int a, string b, int c)
+    public void kararEkle(int a, string b, int c, int e)
     {
         this.kid = a;
         this.soru = b;
         this.etki = c;
+        this.sirketeEtki= e;
     }
 
 }
