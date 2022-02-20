@@ -13,6 +13,7 @@ TagManager:
   - seviyeNum
   - kararSorusu
   - sonrakilvlPanel
+  - initScreen
   layers:
   - Default
   - TransparentFX

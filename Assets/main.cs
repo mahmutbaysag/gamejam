@@ -28,49 +28,62 @@ public class main : MonoBehaviour
         sonrakiLvlPanel = GameObject.FindGameObjectWithTag("sonrakilvlPanel");
 
         soruhazirla();
+        yeniIsletmeYukle();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        isletmeIsim.text = "d";
-        sohret.text = "d";
-        servet.text = "d";
-        sohret1.text = "d";
-        servet1.text = "d";
-        isletmeBilgi.text = "123456789123456789";
-        seviyeNum.text = "d";
-        kararSorusu.text = "d";
+        
+
+
+    }
+
+    public void soruDegistir()
+    {
+        isletmeSayaci++;
+        Debug.Log(isletmeler[isletmeSayaci].ad);
+    }
+
+    public int isletmeSayaci = 0;
+    public int kararSayaci = 0;
+    public void yeniIsletmeYukle()
+    {
+        //zaman fonsiyonu kurulacak
+        
+        isletmeIsim.text = isletmeler[isletmeSayaci].ad;
+        sohret.text = isletmeler[isletmeSayaci].sohret.ToString();
+        servet.text = isletmeler[isletmeSayaci].servet.ToString();
+        sohret1.text = isletmeler[isletmeSayaci].istenenSohret.ToString();
+        servet1.text = isletmeler[isletmeSayaci].istenenServet.ToString();
+        isletmeBilgi.text = isletmeler[isletmeSayaci].bilgi;
+        seviyeNum.text = (isletmeSayaci + 1).ToString();
+        kararSorusu.text = isletmeler[isletmeSayaci].kararlar[kararSayaci].soru;
 
         sonrakiLvlPanel.SetActive(false);
 
-
     }
 
-    void soruDegistir()
+    public void sonrakiLvl()
     {
 
     }
 
-    void yeniIsletmeYukle()
+    public void kaybettin()
     {
 
     }
 
-    void sonrakiLvl()
+    isletme[] isletmeler = new isletme[5];
+    public void soruhazirla()
     {
-
-    }
-
-    void kaybettin()
-    {
-
-    }
-
-    void soruhazirla()
-    {
-        string[] adlar = { "KAFE", "BAKKAL", "DERSHANE", "KIYAFET MAÐAZASI", "ELEKTRONÝK MAÐAZASI" };
+        string[] adlar = new string[5];
+        adlar[0] = "KAFE";
+        adlar[1] = "BAKKAL";
+        adlar[2] = "DERSHANE";
+        adlar[3] = "KIYAFET MAÐAZASI";
+        adlar[4] = "ELEKTRONÝK MAÐAZASI";
 
         string[,] sorular = new string[5, 5] { {
         "kahve otomatý",
@@ -107,33 +120,29 @@ public class main : MonoBehaviour
          }
          };
         int c = 0;
-        isletme[] isletmeler = new isletme[5];
+        
 
-        foreach (string s in adlar)
+        for(int i=0;i<5;i++)
         {
             isletmeler[c] = new isletme();
-            isletmeler[c].isletmeEkle(c, adlar[c], adlar[c], Random.Range(1, 9), Random.Range(10000, 500000), Random.Range(1, 9), Random.Range(10000, 500000), Random.Range(1, 5));
-            Debug.Log(isletmeler[c].kararlar.Length);
-            for (int i = 0; i < isletmeler[c].kararlar.Length; i++)
+            isletmeler[c].isletmeEkle(c, adlar[i], adlar[i], Random.Range(1, 9), Random.Range(10000, 500000), Random.Range(1, 9), Random.Range(10000, 500000), Random.Range(1, 5));
+            karar[] kar = new karar[5];
+            for(int j = 0; j < 5; j++)
             {
-                try
-                {
-                    isletmeler[c].kararlar[i].kararEkle(c, sorular[c, i], Random.Range(1, 3));
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log(e.ToString());
-                }
+                karar x = new karar();
+                x.kararEkle(j+1,sorular[i,j],Random.Range(1,4));
+                kar[j]=x;
             }
-
+            isletmeler[c].kararlar = kar;
             c++;
         }
 
         foreach (isletme isl in isletmeler)
         {
+            //Debug.Log(isl.ad);
             foreach (karar ks in isl.kararlar)
             {
-                Debug.Log(isl.ad + " " + ks.soru);
+                Debug.Log(isl.ad + " " + ks.soru+" "+ks.etki);
             }
         }
 
