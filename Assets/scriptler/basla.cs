@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class basla : MonoBehaviour
 {
+    public GameObject baslaPrefab;
+    public GameObject zaman;
     public void OnMouseDown()
     {
-        Destroy(GameObject.FindGameObjectWithTag("initScreen"));
+        baslaPrefab = GameObject.Find("initScreen");
+        Destroy(baslaPrefab);
+
+        zaman = GameObject.FindGameObjectWithTag("MainCamera");
+        zaman.GetComponent<zaman>().sifirla();
     }
 }

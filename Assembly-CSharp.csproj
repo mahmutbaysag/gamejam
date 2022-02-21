@@ -58,9 +58,12 @@
   <ItemGroup>
     <Compile Include="Assets\main.cs" />
     <Compile Include="Assets\scriptler\sonrakiLevelBtn.cs" />
+    <Compile Include="Assets\scriptler\tekrarBasla.cs" />
     <Compile Include="Assets\scriptler\reddBtn.cs" />
+    <Compile Include="Assets\scriptler\zaman.cs" />
     <Compile Include="Assets\scriptler\onayBtn.cs" />
     <Compile Include="Assets\scriptler\basla.cs" />
+    <Compile Include="Assets\scriptler\devamBtn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
